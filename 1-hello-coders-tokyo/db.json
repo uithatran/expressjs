@@ -3,7 +3,9 @@
     {
       "name": "Trần Thái Hà",
       "phone": "0962156253",
-      "id": "91gv5o9j"
+      "id": "91gv5o9j",
+      "email": "hachin2109@gmail.com",
+      "password": "123456"
     },
     {
       "name": "Pham thien",
@@ -34,6 +36,16 @@
       "name": "bao bao",
       "phone": "12331",
       "id": "5cmUEONQ"
+    },
+    {
+      "name": "15520177",
+      "phone": "1233654798",
+      "id": "-EXwII_o"
+    },
+    {
+      "name": "hachin2109@gmail.com",
+      "phone": "123456",
+      "id": "Tda5HcKT"
     }
   ]
 }

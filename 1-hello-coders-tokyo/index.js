@@ -1,6 +1,9 @@
 var express = require('express');
+var cookieParser = require('cookie-parser')
 
+//sign in route
 var userRoute = require('./routes/user.route');
+var authRoute = require('./routes/auth.route');
 
 var port = 3000;
 
@@ -11,6 +14,7 @@ app.set('view engine', 'pug')   //view engine: the template engine to use
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(cookieParser());
 
 app.use(express.static('public'));
 // var users = [
@@ -35,7 +39,9 @@ app.get('/', function (req, res) {
     });
 });
 
+// get router from another folder
 app.use('/users', userRoute);
+app.use('/auth', authRoute);
 
 app.listen(port, function () {
     console.log('Server listening on ' + port);
