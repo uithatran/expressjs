@@ -1,0 +1,25 @@
+extends ../layout/common
+block content
+
+  .container.m-5
+    div.d-flex
+      h3 Users
+      button.btn.btn-primary.ml-3
+        a.text-light(href="/users/create") New create
+    div.row.mt-1
+      form.ml-auto(action="/users/search", method="GET", class="d-flex col-ms-4")
+        input(type="text", name="q", class="form-control col-ms-4")
+        button.btn.btn-primary.ml-2.col-ms-2 Search
+    table.table.table-hover
+      thread
+        tr
+          th(scope="col") Name
+          th(scope="col") Phone
+          th(scope="col") Active
+      tbody
+        each user in users
+          tr
+            td(scope="row")= user.name
+            td(scope="row")=user.phone
+            td(scope="row")
+              a(href="/users/" +user.id) View details...

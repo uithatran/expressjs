@@ -1,0 +1,13 @@
+/* custom css code */
+html, body {
+    padding: 0px;
+    margin: 0px;
+}
+
+a, a:hover {
+    text-decoration: none;
+}
+
+.navbar {
+    background-color: #3a3b3c !important;
+}
