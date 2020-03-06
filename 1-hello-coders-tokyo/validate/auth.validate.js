@@ -1,22 +1,30 @@
-module.exports.postLogin = function (req, res, next) {
-    var errors = [];
+var db = require('../db');
+var md5 = require('md5');
 
-    if (!req.body.name) {
-        errors.push('Name is required');
-    }
-
-    if (!req.body.phone) {
-        errors.push('Phone is required');
-    }
-
-    //Learn falsy and trutly
-    if (errors.length) {
-        res.render('users/create', {
-            errors: errors,
+module.exports.postLogin1 = function (req, res, next) {
+    var email = req.body.email;
+    //hashed
+    var password = md5(req.body.password);
+    var user = db.get('users').find({email: email}).value();
+    if(!user) {
+        res.render('auth/login', {
+            errors: [
+                'User does not exist',
+            ],
             values: req.body
-        });
-        return;
+        })
     }
 
+    if(user.password != password) {
+        res.render('auth/login', {
+            errors: [
+                'Wrong password',
+            ],
+            values: req.body
+        })
+    }
+    res.cookie('userId', user.id, {
+        singed: true
+    });
     next();
 }

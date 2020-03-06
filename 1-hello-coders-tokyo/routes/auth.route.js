@@ -8,6 +8,6 @@ var router = express.Router();
 
 router.get('/login', controller.login);
 
-router.post('/login', controller.postLogin);
+router.post('/login', authValidate.postLogin1, controller.postLogin);
 
 module.exports = router;

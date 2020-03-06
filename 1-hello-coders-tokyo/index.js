@@ -5,6 +5,9 @@ var cookieParser = require('cookie-parser')
 var userRoute = require('./routes/user.route');
 var authRoute = require('./routes/auth.route');
 
+// add middleware
+var middlewareAuth = require('./middlewares/auth.middleware');
+
 var port = 3000;
 
 var app = express();
@@ -14,7 +17,7 @@ app.set('view engine', 'pug')   //view engine: the template engine to use
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-app.use(cookieParser());
+app.use(cookieParser('bdjsbafkjbsdklbja'));
 
 app.use(express.static('public'));
 // var users = [
@@ -28,7 +31,7 @@ app.use(express.static('public'));
 // function callback()
 // request: what the user pushed
 // response: what the server returned 
-app.get('/', function (req, res) {
+app.get('/', middlewareAuth.requireAuth, function (req, res) {
     // res.send('<h1>Hello Codes.Tokyo</h1><a href="/users">User list</a>');  //use directly on index.js
 
     //used template engines "PUG"
@@ -40,7 +43,7 @@ app.get('/', function (req, res) {
 });
 
 // get router from another folder
-app.use('/users', userRoute);
+app.use('/users', middlewareAuth.requireAuth, userRoute);
 app.use('/auth', authRoute);
 
 app.listen(port, function () {
