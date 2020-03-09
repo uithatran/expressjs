@@ -23,3 +23,13 @@ block content
             td(scope="row")=user.phone
             td(scope="row")
               a(href="/users/" +user.id) View details...
+
+    nav(aria-label='Page navigation example')
+      ul.pagination.justify-content-end
+        li.page-item.disabled
+          a.page-link(href='#', tabindex='-1') Previous
+        - for (var i = 1; i <= pages; i++)
+          li.page-item
+            a.page-link(href='?page='+i)=i
+        li.page-item
+          a.page-link(href='?page='+ i) Next

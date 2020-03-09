@@ -1,5 +1,7 @@
+require('dotenv').config();
+
 var express = require('express');
-var cookieParser = require('cookie-parser')
+var cookieParser = require('cookie-parser');
 
 //sign in route
 var userRoute = require('./routes/user.route');
@@ -17,7 +19,7 @@ app.set('view engine', 'pug')   //view engine: the template engine to use
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-app.use(cookieParser('bdjsbafkjbsdklbja'));
+app.use(cookieParser(process.env.SESSION_SECRET));
 
 app.use(express.static('public'));
 // var users = [
