@@ -1,0 +1,22 @@
+extends ../layouts/common.pug
+block content
+  .d-flex
+    h1 Equipments List
+    button.btn.btn-primary.px-3.py-0.mx-3 Create
+
+  table.table.table-hover
+    thead
+      tr
+        th(scope='col') #
+        th(scope='col') Name
+        th(scope='col') Status
+        th(scope='col') Description
+        th(scope='col') Type
+    tbody
+      each equipment, index in equipments
+        tr
+          th(scope='row')= index + 1
+          td= equipment.name
+          td= equipment.description
+          td= equipment.status
+          td= equipment.type

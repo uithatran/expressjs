@@ -1,0 +1,6 @@
+extends ../layouts/common
+block content 
+  h1 Hello Users
+  each user in users
+    p= user.name
+    p= user.phone

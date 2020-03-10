@@ -1,0 +1,32 @@
+html
+  head
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css")
+    script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js")
+    link(rel="stylesheet", href="/styles/custom.css")
+  body
+  div(class="container-fluid", style="padding: 0px; margin:0px")
+    nav.navbar.navbar-expand-sm.navbar-dark.bg-dark.p-0
+      a(href="/" class="navbar-brand p-0") 
+        img(src="/images/logo.png", alt="logo.png", class="px-3" style="width: 85px")
+      button(class="navbar-toggler", type="button", data-toggle="collapse", data-target="#navbarText", aria-controls="navbarText", aria-expanded="false", aria-label="Toggle, navigation")
+        span(class="navbar-toggler-icon")
+      div(class="collapse navbar-collapse", id="navbarText")
+        ul.navbar-nav.mr-auto
+          li(class="nav-item")
+            a(class="nav-link",href="/") Home
+            //- span(class="sr-only", current)
+            
+          li(class="nav-item")
+            a(class="nav-link", href="/users") Users
+          li(class="nav-item")
+            a(class="nav-link", href="/equipments") Equipment
+          li(class="nav-item")
+            a(class="nav-link", href="#") Create
+      button.btn.btn-primary.px-3.mr-3
+        a.text-light(href="#") Login 
+      if user
+        h5.text-light.px-3.m-0=user.name
+    div.container.p-5.ml-5
+      block content
