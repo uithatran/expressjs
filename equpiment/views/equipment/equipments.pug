@@ -1,10 +1,10 @@
-extends ../layouts/common.pug
+extends ../layouts/common
 block content
-  .head.d-flex.bg-secondary.p-3
-    .col-sm-6
+  .title.d-flex.bg-secondary.p-3
+    .title-left.col-sm-6
       h3 Manage Equipments
-    .col-sm-6
-      a.btn.btn-success(href='#addEmployeeModal', data-toggle='modal')
+    .title-right.d-flex.justify-content-end.col-sm-6
+      a.btn.btn-success(href='/equipments/create')
         i.material-icons &#xE147;
         span Add New Employee
       a.btn.btn-danger(href='#deleteEmployeeModal', data-toggle='modal')
@@ -13,22 +13,38 @@ block content
   table.table.table-hover
     thead
       tr
-        th(scope='col')
-          div
-            input(type="checkbox", class="form-check-input", id="exampleCheck1")
-        th(scope='col') Name
-        th(scope='col') Status
-        th(scope='col') Description
-        th(scope='col') Type
-        th(scope='col') Actions
+        th.col-ms-1(scope='col')
+          span.custom-checkbox
+            input#selectAll(type='checkbox')
+            label(for='selectAll')
+        th.col-ms-2(scope='col') Name
+        th.col-ms-4(scope='col') Description
+        th.col-ms-2(scope='col') Status
+        th.col-ms-1(scope='col') Type
+        th.col-ms-1.px-4(scope='col') Actions
     tbody
-      each equipment, index in equipments
+      each equipment in equipments
         tr
-          th(scope='row')
-            div(class="custom-control custom-checkbox")
-              input(type="checkbox", class="form-check-input", id="exampleCheck1")
+          td
+            span.custom-checkbox
+              input(id=equipment.id, type='checkbox')
+              label(for=equipment.id)
+            //- .custom-control.custom-checkbox
+            //-   inputcustom-control-input(id=equipment.id, type='checkbox')
+            //-   label.custom-control-label(for=equipment.id)
           td= equipment.name
           td= equipment.description
-          td= equipment.status
+          td
+            - if(equipment.status==true)
+              span.text-primary Used
+            - else
+              span.text-secondary Empty
           td= equipment.type
-
+          td.d-flex.p-0.actions
+            a.edit(name=equipment.id, href='/equipments/update/' + equipment.id)
+              i.material-icons(data-toggle='tooltip', title='Edit') &#xE254;
+            //- form(method="DELETE", action="/equipments/delete/" + equipment.id)
+            form(method="POST" action="/equipments/delete/"+equipment.id+"?_method=DELETE")
+                button.btn.mx-2(type='submit', style="background:  transparent;")
+                  a.edit(name=equipment.id, href='/equipments/update/' + equipment.id)
+                    i.material-icons(data-toggle='tooltip', title='Delete') &#xE872;

@@ -1,0 +1,60 @@
+extends ../layouts/common
+block content
+  .row.justify-content-center
+    .col-md-8
+      // form user info
+      .card.card-outline-secondary
+        .card-header
+          h3.mb-0 Edit Equipment
+        .card-body
+          form(method="POST" action="/equipments/update/"+equipment.id+"?_method=PUT")
+            .form-group.row
+              label.col-lg-3.col-form-label.form-control-label ID
+              .col-lg-9
+                input.form-control(type='text', name="_id", placeholder='Input name', value=equipment.id, disabled)
+            .form-group.row
+              label.col-lg-3.col-form-label.form-control-label Name
+              .col-lg-9
+                input.form-control(type='text', name="name", placeholder='Input name', value=equipment.name)
+            .form-group.row
+              label.col-lg-3.col-form-label.form-control-label Status
+              .col-lg-9
+                - if(equipment.status == false)
+                  .custom-control.custom-radio
+                    input#customRadio1.custom-control-input(type='radio', name='status', value="0", checked)
+                    label.custom-control-label(for='customRadio1') Empty
+                  .custom-control.custom-radio
+                    input#customRadio2.custom-control-input(type='radio', name='status', value="1")
+                    label.custom-control-label(for='customRadio2') Used
+                - else 
+                  .custom-control.custom-radio
+                    input#customRadio1.custom-control-input(type='radio', name='status', value="0")
+                    label.custom-control-label(for='customRadio1') Empty
+                  .custom-control.custom-radio
+                    input#customRadio2.custom-control-input(type='radio', name='status', value="1", checked)
+                    label.custom-control-label(for='customRadio2') Used
+            .form-group.row
+              label.col-lg-3.col-form-label.form-control-label(for='exampleFormControlTextarea1') Description
+              .col-lg-9
+                textarea#exampleFormControlTextarea1.form-control(name='description', rows='3')= equipment.description
+            .form-group.row
+              label.col-lg-3.col-form-label.form-control-label Type
+              .col-lg-9
+                select.custom-select.custom-select-md.form-control(name='type')
+                  - if (equipment.type != 'PC' && equipment.type != 'LAPTOP')
+                    option(selected='', disabled) Open this select menu
+                    option(value='LAPTOP') Laptop
+                    option(value='PC') PC
+                  - if (equipment.type == 'PC')
+                    option(value='PC', selected) PC
+                    option(value='LAPTOP') Laptop
+                  - if (equipment.type == 'LAPTOP')
+                    option(value='LAPTOP', selected) Laptop
+                    option(value='PC') PC
+            .form-group.row.mt-5
+              label.col-lg-3.col-form-label.form-control-label
+              .col-lg-9.d-flex.justify-content-center.pl-5
+                a(href="/equipments")
+                  input.btn.btn-secondary.mx-2(type='button', value='Cancel')
+                input.btn.btn-primary.mx-2(type='submit', value='Update')
+                //- <button type="submit">Put</button>

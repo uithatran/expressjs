@@ -11,3 +11,14 @@ a, a:hover {
 .navbar {
     background-color: #3a3b3c !important;
 }
+
+.title-right a {
+   margin: 0 5px;
+   align-items: center;
+}
+
+.actions a{
+    text-align: right;
+    margin: 5px;
+    padding: 2px;
+}
