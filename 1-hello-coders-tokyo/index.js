@@ -2,15 +2,27 @@ require('dotenv').config();
 
 var express = require('express');
 var cookieParser = require('cookie-parser');
+var mongoose =  require('mongoose');
+
+mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log("Connection Mongo success");
+});
+
+var apiProductRoute = require('./api/routes/product.route');
 
 //sign in route
 var userRoute = require('./routes/user.route');
 var authRoute = require('./routes/auth.route');
-
+var productRoute = require('./routes/product.route');
+ 
 // add middleware
 var middlewareAuth = require('./middlewares/auth.middleware');
 
-var port = 3000;
+var port = 3001;
 
 var app = express();
 
@@ -19,6 +31,7 @@ app.set('view engine', 'pug')   //view engine: the template engine to use
 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use('/api/products', apiProductRoute);
 app.use(cookieParser(process.env.SESSION_SECRET));
 
 app.use(express.static('public'));
@@ -47,6 +60,9 @@ app.get('/', middlewareAuth.requireAuth, function (req, res) {
 // get router from another folder
 app.use('/users', middlewareAuth.requireAuth, userRoute);
 app.use('/auth', authRoute);
+app.use('/products', productRoute);
+
+
 
 app.listen(port, function () {
     console.log('Server listening on ' + port);

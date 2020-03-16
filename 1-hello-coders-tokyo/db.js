@@ -7,7 +7,10 @@ var db = low(adapter);
 
 // 6.Tich hop database (lowdb)
 // Set some defaults
-db.defaults({ users: []})
+db.defaults({
+  users: [],
+  products: [],
+})
   .write()
 
 

@@ -26,10 +26,20 @@ block content
 
     nav(aria-label='Page navigation example')
       ul.pagination.justify-content-end
-        li.page-item.disabled
-          a.page-link(href='#', tabindex='-1') Previous
+        - if (pagecurr !== 1)
+          li.page-item
+            - var pagepre = pagecurr - 1;
+            a.page-link(href='?page='+ pagepre) Previous
+        - else // disable
+          li.page-item.disabled
+            a.page-link(href='#', tabindex='-1') Previous
         - for (var i = 1; i <= pages; i++)
           li.page-item
             a.page-link(href='?page='+i)=i
-        li.page-item
-          a.page-link(href='?page='+ i) Next
+        - if (pagecurr!==pageend)
+          li.page-item
+            - var pagenext = pagecurr + 1;
+            a.page-link(href='?page='+ pagenext) Next
+        - else
+          li.page-item.disabled
+            a.page-link(href='#') Next 

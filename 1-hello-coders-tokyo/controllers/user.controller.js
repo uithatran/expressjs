@@ -1,27 +1,36 @@
 var shortid = require('shortid');
 var md5 = require('md5');
+var UserModel = require('../models/user.model');
 var db = require('../db');
 
 module.exports.index = function (req, res) {
-  var page = parseInt(req.query.page || 1);
-  var perPage = 5;
-  var totalPage = db.get('users').value().length / perPage;
-  totalPage = (totalPage > parseInt(totalPage) ? parseInt(totalPage) + 1 : totalPage);
+  // var page = parseInt(req.query.page || 1);
+  // var perPage = 5;
+  // var totalPage = db.get('users').value().length / perPage;
+  // totalPage = (totalPage > parseInt(totalPage) ? parseInt(totalPage) + 1 : totalPage);
+  // var pageEnd = totalPage;
+  // //Cach khac:
+  // var drop = (page - 1) * perPage;
 
-  //Cach khac:
-  var drop = (page - 1) * perPage;
+  // var start = (page - 1) * perPage;
+  // var end = page * perPage;
 
-  var start = (page - 1) * perPage;
-  var end = page * perPage;
+  // res.render('users/index', {
+  //   // users: users,
+  //   // Pagination
+  //   // users: db.get('users').value().slice(start, end),
+  //   pages: totalPage,
+  //   pagecurr: page,
+  //   pageend: pageEnd,
 
-  res.render('users/index', {
-    // users: users,
-    // Pagination
-    users: db.get('users').value().slice(start, end),
-    pages: totalPage,
+  //   // users: db.get('users').drop(drop).take(perPage).value(),
+  // });
 
-    // users: db.get('users').drop(drop).take(perPage).value(),
-  });
+  UserModel.find().then(function(users) {
+    res.render('users/index', {
+      users: users,
+    })
+  })
 }
 
 // 3.Query parameters
