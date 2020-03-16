@@ -1,0 +1,42 @@
+extends ../layouts/common
+block content
+  .container.m-5
+    div.d-flex
+      h3 Users
+      a.text-light(href="/users/create")
+        button.btn.btn-primary.ml-3 New create
+    div.mt-2
+      form.d-flex(action="/users/search", method="GET")
+        div.col-sm-8 
+        input.col-sm-3(type="text", name="q", class="form-control")
+        button.btn.btn-primary.col-sm-1 Search
+    table.table.table-hover
+      thread
+        tr
+          th(scope="col") Name
+          th(scope="col") Phone
+          th(scope="col") Details
+          td(scope="col") Actions
+      tbody
+        each user,index in users
+          tr
+            td(scope="row")= user.name
+            td(scope="row")=user.phone
+            td(scope="row")
+              a(href="/users/detail/" +user.id) View details...
+            td(scope="row")
+              a.edit.px-2(href='/users/update/' + user._id)
+                i.material-icons(data-toggle='tooltip', title='Edit') &#xE254;
+              a.edit.px-2(href='/users/delete/' + user._id)
+                i.material-icons(data-toggle='tooltip', title='Delete') &#xE872;
+
+
+    nav(aria-label='Page navigation example')
+      ul.pagination.justify-content-end
+        li.page-item.disabled
+          a.page-link(href='#', tabindex='-1') Previous
+        - for (var i = 1; i <= pages; i++)
+          li.page-item
+            a.page-link(href='?page='+i)=i
+        li.page-item
+          a.page-link(href='?page='+ i) Next

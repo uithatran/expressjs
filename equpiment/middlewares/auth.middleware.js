@@ -7,8 +7,6 @@ module.exports.requireAuth = function (req, res, next) {
         res.redirect('/auth/login');
         return;
     }
-    // var user = db.get('users').find({ id: req.signedCookies.userId }).value();
-    // named john and at least 18
 
     userModel.findById(req.signedCookies.userId).exec(function(err, user) {
         if(err) {

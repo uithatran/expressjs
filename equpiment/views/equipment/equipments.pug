@@ -36,10 +36,10 @@ block content
           td= equipment.description
           td
             - if(equipment.status==true)
-              span.text-primary Used
+              span.text-primary= (equipment.userSelectedId || "User")
             - else
               span.text-secondary Empty
-          td= equipment.type
+          td= equipment.type.toUpperCase()
           td.d-flex.p-0.actions
             a.edit(name=equipment.id, href='/equipments/update/' + equipment.id)
               i.material-icons(data-toggle='tooltip', title='Edit') &#xE254;

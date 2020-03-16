@@ -1,5 +1,10 @@
 extends ../layouts/common
 block content
+
+  - if (errors)
+      each error in errors
+        .alert.alert-danger= error
+
   .row.justify-content-center
     .col-md-8
       // form user info
@@ -19,20 +24,30 @@ block content
             .form-group.row
               label.col-lg-3.col-form-label.form-control-label Status
               .col-lg-9
+                //- Empty
                 - if(equipment.status == false)
                   .custom-control.custom-radio
-                    input#customRadio1.custom-control-input(type='radio', name='status', value="0", checked)
+                    input#customRadio1.custom-control-input(onclick="document.getElementById('userSelectedId').disabled = true;", type='radio', name="status", checked='checked', value="0")
                     label.custom-control-label(for='customRadio1') Empty
                   .custom-control.custom-radio
-                    input#customRadio2.custom-control-input(type='radio', name='status', value="1")
+                    input#customRadio2.custom-control-input(onclick="document.getElementById('userSelectedId').disabled = false;", type='radio', name="status", value="1")
                     label.custom-control-label(for='customRadio2') Used
+                  select.custom-select.custom-select-md.form-control(name="userSelectedId", id="userSelectedId", disabled='disabled')
+                    option(selected='', disabled='disabled') Selected a user
+                    each user in users
+                      option(value=user.id)= user.name
+                //- Used
                 - else 
                   .custom-control.custom-radio
-                    input#customRadio1.custom-control-input(type='radio', name='status', value="0")
+                    input#customRadio1.custom-control-input(onclick="document.getElementById('userSelectedId').disabled = true;", type='radio', name="status", value="0")
                     label.custom-control-label(for='customRadio1') Empty
                   .custom-control.custom-radio
-                    input#customRadio2.custom-control-input(type='radio', name='status', value="1", checked)
+                    input#customRadio2.custom-control-input(onclick="document.getElementById('userSelectedId').disabled = false;", type='radio', name="status", checked='checked', value="1")
                     label.custom-control-label(for='customRadio2') Used
+                  select.custom-select.custom-select-md.form-control(name="userSelectedId", id="userSelectedId")
+                    option(selected='', disabled='disabled') Selected a user
+                    each user in users
+                      option(value=user.id)= user.name
             .form-group.row
               label.col-lg-3.col-form-label.form-control-label(for='exampleFormControlTextarea1') Description
               .col-lg-9
@@ -41,16 +56,16 @@ block content
               label.col-lg-3.col-form-label.form-control-label Type
               .col-lg-9
                 select.custom-select.custom-select-md.form-control(name='type')
-                  - if (equipment.type != 'PC' && equipment.type != 'LAPTOP')
+                  - if (equipment.type != 'pc' && equipment.type != 'laptop')
                     option(selected='', disabled) Open this select menu
-                    option(value='LAPTOP') Laptop
-                    option(value='PC') PC
-                  - if (equipment.type == 'PC')
-                    option(value='PC', selected) PC
-                    option(value='LAPTOP') Laptop
-                  - if (equipment.type == 'LAPTOP')
-                    option(value='LAPTOP', selected) Laptop
-                    option(value='PC') PC
+                    option(value='laptop') LAPTOP
+                    option(value='pc') PC
+                  - if (equipment.type == 'pc')
+                    option(value='pc', selected) PC
+                    option(value='laptop') LAPTOP
+                  - if (equipment.type == 'laptop')
+                    option(value='laptop', selected) LAPTOP
+                    option(value='pc') PC
             .form-group.row.mt-5
               label.col-lg-3.col-form-label.form-control-label
               .col-lg-9.d-flex.justify-content-center.pl-5

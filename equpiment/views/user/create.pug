@@ -1,0 +1,34 @@
+extends ../layouts/common
+block content
+  div.d-flex.flex-column.mx-5
+    h1 Create user
+    if errors
+      each error in errors 
+        .alert.alert-danger= error
+  
+    form(action="/users/create", method="POST")
+      div.d-flex.flex-column
+        .form-group
+          label(for="email") Email
+          input(id="email", class="form-control", name="email", type="email", placeholder="Input email", value=values ? values.email: "")
+        .form-group
+          label(for="password") Password
+          input(id="password", class="form-control", name="password", type="password", placeholder="Input password", value=values ? values.password: "")
+        .form-group
+          label(for="name") Name
+          input(id="name", class="form-control", name="name", type="text", placeholder="Input name", value=values ? values.name: "")
+        .form-group
+          label(for="phone") Phone
+          input(id="phone", class="form-control", name="phone", type="text", placeholder="Input phone", value=values ? values.phone: "")
+        .form-group
+          label(for="isadmin") IsAdmin
+          .custom-control.custom-radio
+            input#notadmin.custom-control-input.p-2(type='radio', name='isAdmin', value = 'false', checked)
+            label.custom-control-label.pr-5(for='notadmin') User guest
+
+          .custom-control.custom-radio
+            input#admin.custom-control-input.px-5(type='radio', name='isAdmin', value = 'true')
+            label.custom-control-label.pr-5(for='admin') Admin
+
+
+        button.btn.btn-lg.btn-primary.align-items-center.mr-5.px-4.py-1.ml-auto Create

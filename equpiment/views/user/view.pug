@@ -1,0 +1,64 @@
+extends ../layouts/common
+block content
+  #user.container.profile()
+    .row
+      .col.text-center.mt-3
+        img.img-md.rounded-circle.border.shadow(alt='picture', src='/images/userlogo.png', width="200px")
+        h2.mt-3= user.name
+    .row.mt-2
+      .col
+        ul#myTab.nav.nav-tabs(role='tablist')
+          li.nav-item
+            a#profile-tab.nav-link.active(data-toggle='tab', href='#profile', role='tab', aria-controls='profile', aria-selected='true') Profile
+          li.nav-item
+            a#contact-tab.nav-link(data-toggle='tab', href='#contact', role='tab', aria-controls='contact', aria-selected='false') Equipment
+        #myTabContent.tab-content
+          #profile.tab-pane.fade.show.active(role='tabpanel', aria-labelledby='profile-tab')
+            table.table.table-hover.table-md.table-properties
+              tr
+                th ID
+                td(style='white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 20rem;')= user._id
+              tr
+                th Name
+                td= user.name
+              tr
+                th Email
+                td= user.email
+              tr
+                th Phone
+                td=user.phone
+              tr
+                th Position
+                td= user.isAdmin == true ? 'ADMIN' : 'GUEST'
+          #contact.tab-pane.fade(role='tabpanel', aria-labelledby='contact-tab')
+            table.table.table-striped
+              thead
+                tr
+                  th(scope='col') #
+                  th(scope='col') Name
+                  th(scope='col') Type
+                  th(scope='col') Description
+              tbody
+                each equipment, index in equipments
+                  tr
+                    th(scope='row')= index + 1 
+                    td= equipment.name
+                    td= equipment.type
+                    td= equipment.description
+            //- table.table.table-hover.table-sm.table-properties
+            //-   tr(v-show='user.email')
+            //-     th email
+            //-     td {{user.email}}
+            //-   tr(v-show='user.email_verified')
+            //-     th email verified
+            //-     td {{user.email_verified}}
+  //- span Name: 
+  //-   span= user.name
+  //- span Email: 
+  //-   span= user.email
+  //- span Phone: 
+  //-   span= user.phone
+  //- each equipment in equipments
+  //-   span= equipment.name
+
+    
