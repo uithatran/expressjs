@@ -95,7 +95,9 @@ module.exports.postCreate = function (req, res) {
       console.error(err);
       return res.status(500).send();
     } else {
-      res.redirect('/users');
+      res.render('user/create',{
+        success: ['Create user success'],
+      });
     }
   })
 }

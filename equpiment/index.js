@@ -45,5 +45,6 @@ app.get('/', middlewareAuth.requireAuth, function (req, res) {
 app.use('/auth', authRoute);
 app.use('/users', middlewareAuth.requireAuth, userRoute);
 app.use('/equipments', middlewareAuth.requireAuth, middlewareAdmin.checkAdmin, equipmentRoute);
+app.use('/equipments', middlewareAuth.requireAuth, middlewareAdmin.checkAdmin, equipmentRoute);
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

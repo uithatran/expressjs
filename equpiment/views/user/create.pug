@@ -2,6 +2,8 @@ extends ../layouts/common
 block content
   div.d-flex.flex-column.mx-5
     h1 Create user
+    if success
+      .alert.alert-success= success
     if errors
       each error in errors 
         .alert.alert-danger= error
@@ -10,10 +12,10 @@ block content
       div.d-flex.flex-column
         .form-group
           label(for="email") Email
-          input(id="email", class="form-control", name="email", type="email", placeholder="Input email", value=values ? values.email: "")
+          input(id="email", class="form-control", name="email", type="email", placeholder="Input email", required, value=values ? values.email: "")
         .form-group
           label(for="password") Password
-          input(id="password", class="form-control", name="password", type="password", placeholder="Input password", value=values ? values.password: "")
+          input(id="password", class="form-control", name="password", type="password", placeholder="Input password", required, value=values ? values.password: "")
         .form-group
           label(for="name") Name
           input(id="name", class="form-control", name="name", type="text", placeholder="Input name", value=values ? values.name: "")

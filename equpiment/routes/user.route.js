@@ -11,7 +11,7 @@ router.get('/', controller.index);
 router.get('/detail/:id', controller.userView);
 router.get('/create', middlewareAdmin.checkAdmin, controller.getCreate);
 router.get('/search', controller.search);
-router.get('/delete/:id', middlewareAdmin.checkAdmin, controller.delete);
+router.get('/delete/:id', middlewareAdmin.checkAdmin, validateUser.notDeleteAdmin, controller.delete);
 
 router.post('/create', validateUser.postCreate, controller.postCreate);
 

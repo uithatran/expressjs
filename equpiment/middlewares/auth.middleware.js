@@ -2,7 +2,7 @@
 var userModel = require('../models/user.model');
 
 module.exports.requireAuth = function (req, res, next) {
-    console.log("middleWare: ", req.signedCookies);
+    // console.log("middleWare: ", req.signedCookies);
     if (!req.signedCookies.userId) {
         res.redirect('/auth/login');
         return;

@@ -2,7 +2,7 @@
 var md5 = require('md5');
 var userModel = require('../models/user.model');
 
-module.exports.postLogin1 = function (req, res, next) {
+module.exports.postLogin = function (req, res, next) {
     var email = req.body.email;
     //hashed
     var password = md5(req.body.password);
