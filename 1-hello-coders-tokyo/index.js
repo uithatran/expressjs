@@ -10,7 +10,7 @@ var authRoute = require('./routes/auth.route');
 // add middleware
 var middlewareAuth = require('./middlewares/auth.middleware');
 
-var port = 3000;
+var port = 3001;
 
 var app = express();
 
